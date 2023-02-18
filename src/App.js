@@ -1,25 +1,53 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
+import Header from "./components/Header";
+import Main from "./components/Main";
+import Footer from "./components/Footer";
+import {base_url, defaultText, navItems} from "./utils/Constansts";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state={
+            currentPage:navItems[0],
+            text:defaultText,
+            planets:''
+        }
+    }
+    changePage = (currentPage) =>{
+        if(currentPage===navItems[0]){
+            const num = Math.floor(Math.random() * (6 - 1 + 1) ) + 1;
+            fetch(`${base_url}v1/films/${num}`)
+                .then(response=>response.json())
+                .then(data=>{
+                    this.setState({currentPage,text:data.opening_crawl})
+                })
+        }
+        if(currentPage===navItems[3]){
+            fetch(`${base_url}/v1/planets`)
+                .then(response=>response.json())
+                .then(data=>{
+                   this.setState({currentPage,planets:[...data.map(e=>e.name)]})
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+        }
+        else {
+            this.setState({currentPage})
+        }
+
+
+    }
+    render() {
+        return (
+            <div className="container-fluid">
+                <Header changePage={this.changePage} />
+                <Main currentPage={this.state.currentPage} text={this.state.text} planets={this.state.planets}/>
+                <Footer/>
+            </div>
+        );
+    }
 }
 
 export default App;
