@@ -1,5 +1,5 @@
 import React from 'react';
-import {base_url} from "../utils/Constansts";
+import {base_url, expDays} from "../utils/Constansts";
 import HeroInfo from "./HeroInfo";
 
 class AboutMe extends React.Component {
@@ -20,7 +20,7 @@ class AboutMe extends React.Component {
         const aboutMe=JSON.parse(localStorage.getItem('aboutMe'));
         const date = new Date();
         if (aboutMe && (
-            date.getFullYear().toString() <= localStorage.getItem('aboutMeExpDate_year')
+            date.getFullYear().toString() === localStorage.getItem('aboutMeExpDate_year')
             && date.getMonth().toString() <= localStorage.getItem('aboutMeExpDate_month')
             && date.getDate().toString() <= localStorage.getItem('aboutMeExpDate_date')
         )){
@@ -55,7 +55,7 @@ class AboutMe extends React.Component {
                         }
                     })
                     localStorage.setItem('aboutMe',JSON.stringify(data))
-                    date.setDate(new Date().getDate() + 30);
+                    date.setDate(new Date().getDate() + expDays);
                     localStorage.setItem('aboutMeExpDate_year', date.getFullYear().toString());
                     localStorage.setItem('aboutMeExpDate_month', date.getMonth().toString());
                     localStorage.setItem('aboutMeExpDate_date', date.getDate().toString());

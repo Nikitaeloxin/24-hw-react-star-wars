@@ -13,6 +13,8 @@ export const base_url ='https://sw-info-api.herokuapp.com/';
 
 export const friends = [friend1,friend2,friend3,friend4,friend5,friend6,friend7,friend8,friend9]
 
+export const expDays = 30;
+
 
 export const defaultText ='It is a period of civil war.\n' +
     '            Rebel spaceships, striking\n' +
