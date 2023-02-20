@@ -1,6 +1,6 @@
 import React from 'react';
 import OptionItem from "./OptionItem";
-
+import contactStyle from '../css/contact.css'
 const ContactForm = ({planets}) => {
 
     return (
