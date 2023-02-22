@@ -1,31 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import './App.css';
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
 import {base_url, defaultText, navItems} from "./utils/Constansts";
 
-class App extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state={
-            currentPage:navItems[0],
-        }
-    }
-    changePage = (currentPage) =>{
-            this.setState({currentPage})
+const App =()=>{
+
+    const [currentPage,setCurrentPage] = useState(navItems[0])
 
 
-    }
-    render() {
         return (
             <div className="container-fluid">
-                <Header changePage={this.changePage} />
-                <Main currentPage={this.state.currentPage}/>
+                <Header changePage={setCurrentPage} />
+                <Main currentPage={currentPage}/>
                 <Footer/>
             </div>
         );
-    }
+
 }
 
 export default App;
